@@ -1,18 +1,86 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
     <id>com.github.abuballan.adbcommanderplugin</id>
-    <name>adb-commander-plugin</name>
+    <name>ADB Commander</name>
     <vendor>abuballan</vendor>
 
     <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.androidstudio</depends>
+    <depends>org.jetbrains.android</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="com.github.abuballan.adbcommanderplugin.services.MyApplicationService"/>
-        <projectService serviceImplementation="com.github.abuballan.adbcommanderplugin.services.MyProjectService"/>
+        <notificationGroup id="adbCommanderNotification" displayType="BALLOON"/>
+        <projectService serviceImplementation="com.github.abuballan.adbcommanderplugin.services.VariableCollectionPersistentService"/>
     </extensions>
 
-    <applicationListeners>
-        <listener class="com.github.abuballan.adbcommanderplugin.listeners.MyProjectManagerListener"
-                  topic="com.intellij.openapi.project.ProjectManagerListener"/>
-    </applicationListeners>
+    <actions>
+        <group id="AdbCommanderGroup"
+               icon="/icons/adb_commander_icon.svg"
+               text="ADB Commander"
+               popup="true">
+
+            <action class="com.github.abuballan.adbcommanderplugin.action.OpenCurrentActivityAction"
+                    text="Open Current Activity" />
+
+            <action class="com.github.abuballan.adbcommanderplugin.action.OpenCurrentFragmentAction"
+                    text="Open Current Fragment" />
+
+            <separator />
+
+            <action class="com.github.abuballan.adbcommanderplugin.action.RevokePermissionsAction"
+                    text="Revoke Permissions" />
+
+            <action class="com.github.abuballan.adbcommanderplugin.action.RevokePermissionsAndRestartAction"
+                    text="Revoke Permissions and Restart" />
+
+            <action class="com.github.abuballan.adbcommanderplugin.action.GrantPermissionsAction"
+                    text="Grant Permissions" />
+
+            <action class="com.github.abuballan.adbcommanderplugin.action.GrantPermissionsAndRestartAction"
+                    text="Grant Permissions and Restart" />
+
+            <separator />
+
+            <action class="com.github.abuballan.adbcommanderplugin.action.ClearAppDataAction"
+                    text="Clear App Data" />
+
+            <action class="com.github.abuballan.adbcommanderplugin.action.ClearAppDataAndRestartAction"
+                    text="Clear App Data and Restart" />
+
+            <action class="com.github.abuballan.adbcommanderplugin.action.StartAppAction"
+                    text="Start App" />
+
+            <action class="com.github.abuballan.adbcommanderplugin.action.RestartAppAction"
+                    text="Restart App" />
+
+            <action class="com.github.abuballan.adbcommanderplugin.action.KillApplicationAction"
+                    text="Kill App" />
+
+            <action class="com.github.abuballan.adbcommanderplugin.action.UninstallAppAction"
+                    text="Uninstall App" />
+
+            <separator />
+
+            <action class="com.github.abuballan.adbcommanderplugin.action.EnableWifiAction"
+                    text="Enable WIFI" />
+
+
+            <action class="com.github.abuballan.adbcommanderplugin.action.DisableWifiAction"
+                    text="Disable WIFI" />
+
+            <action class="com.github.abuballan.adbcommanderplugin.action.EnableMobileDataAction"
+                    text="Enable Mobile Data" />
+
+
+            <action class="com.github.abuballan.adbcommanderplugin.action.DisableMobileDataAction"
+                    text="Disable Mobile Data" />
+
+            <separator />
+
+            <action class="com.github.abuballan.adbcommanderplugin.action.OpenDeeplinksAction"
+                    text="Deeplinks" />
+
+            <add-to-group group-id="ToolbarRunGroup" relative-to-action="BuildMenu" anchor="before" />
+        </group>
+    </actions>
 </idea-plugin>
